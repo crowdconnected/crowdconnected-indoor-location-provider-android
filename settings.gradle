@@ -1,0 +1,3 @@
+include ':crowdconnectedlocationprovider'
+include ':app'
+rootProject.name = "crowdconnected-indoor-location-provider-android"
