@@ -119,7 +119,7 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
 
     private void setupLocationProvider() {
         if (mapwizeMap != null) {
-            crowdConnectedIndoorLocationProvider = new CrowdConnectedIndoorLocationProvider(this);
+            crowdConnectedIndoorLocationProvider = new CrowdConnectedIndoorLocationProvider();
             crowdConnectedIndoorLocationProvider.start();
             mapwizeMap.setIndoorLocationProvider(crowdConnectedIndoorLocationProvider);
         }
