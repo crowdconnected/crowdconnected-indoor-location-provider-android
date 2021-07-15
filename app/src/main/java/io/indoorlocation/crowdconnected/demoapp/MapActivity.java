@@ -6,29 +6,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import net.crowdconnected.android.core.Configuration;
-import net.crowdconnected.android.core.ConfigurationBuilder;
-import net.crowdconnected.android.core.CrowdConnected;
-import net.crowdconnected.android.ips.IPSModule;
-
-import java.util.Locale;
-
 import io.indoorlocation.crowdconnected.crowdconnectedlocationprovider.CrowdConnectedIndoorLocationProvider;
 import io.mapwize.mapwizesdk.api.MapwizeObject;
 import io.mapwize.mapwizesdk.map.MapOptions;
 import io.mapwize.mapwizesdk.map.MapwizeMap;
 import io.mapwize.mapwizeui.MapwizeFragment;
-
-import static io.indoorlocation.crowdconnected.demoapp.CrowdConnectedIndoorLocationProviderDemoApplication.CROWDCONNECTED_APP_KEY;
-import static io.indoorlocation.crowdconnected.demoapp.CrowdConnectedIndoorLocationProviderDemoApplication.CROWDCONNECTED_SECRET;
-import static io.indoorlocation.crowdconnected.demoapp.CrowdConnectedIndoorLocationProviderDemoApplication.CROWDCONNECTED_TOKEN;
 
 public class MapActivity extends AppCompatActivity implements MapwizeFragment.OnFragmentInteractionListener {
 
@@ -36,7 +26,6 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
     private static final String LOG_TAG = "MAP_ACTIVITY";
 
     private MapwizeFragment mapwizeFragment;
-    private CrowdConnectedIndoorLocationProvider crowdConnectedIndoorLocationProvider;
     private MapwizeMap mapwizeMap;
 
     @Override
@@ -56,14 +45,6 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
 
     @Override
     public void onStart() {
-        Configuration configuration = new ConfigurationBuilder()
-                .withAppKey(CROWDCONNECTED_APP_KEY)
-                .withToken(CROWDCONNECTED_TOKEN)
-                .withSecret(CROWDCONNECTED_SECRET)
-                .withStatusCallback(reason -> Log.i(LOG_TAG, "Start up failure: " + reason))
-                .addModule(new IPSModule())
-                .build();
-        CrowdConnected.start(getApplication(), configuration);
         setupLocationProvider();
         mapwizeFragment.onStart();
         super.onStart();
@@ -84,9 +65,6 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
     @Override
     public void onStop() {
         mapwizeFragment.onStop();
-        if (CrowdConnected.getInstance() != null) {
-            CrowdConnected.getInstance().stop();
-        }
         super.onStop();
     }
 
@@ -118,7 +96,7 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
 
     private void setupLocationProvider() {
         if (mapwizeMap != null) {
-            crowdConnectedIndoorLocationProvider = new CrowdConnectedIndoorLocationProvider();
+            CrowdConnectedIndoorLocationProvider crowdConnectedIndoorLocationProvider = new CrowdConnectedIndoorLocationProvider(getApplication());
             crowdConnectedIndoorLocationProvider.start();
             mapwizeMap.setIndoorLocationProvider(crowdConnectedIndoorLocationProvider);
         }

@@ -34,6 +34,4 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.github.Mapwize:mapwize-ui-android:2.2.0'
     implementation 'io.mapwize.sdk:mapwize-sdk:3.2.1'
-    implementation 'net.crowdconnected.android.core:android-core:0.9.1'
-    implementation 'net.crowdconnected.android.ips:android-ips:0.9.1'
 }
