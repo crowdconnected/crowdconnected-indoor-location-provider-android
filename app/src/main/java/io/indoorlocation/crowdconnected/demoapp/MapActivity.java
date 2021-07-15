@@ -63,8 +63,7 @@ public class MapActivity extends AppCompatActivity implements MapwizeFragment.On
                 .withStatusCallback(reason -> Log.i(LOG_TAG, "Start up failure: " + reason))
                 .addModule(new IPSModule())
                 .build();
-        CrowdConnected.start(this, configuration);
-        CrowdConnected.getInstance().navigation(true);
+        CrowdConnected.start(getApplication(), configuration);
         setupLocationProvider();
         mapwizeFragment.onStart();
         super.onStart();

@@ -18,7 +18,7 @@ public class CrowdConnectedIndoorLocationProvider extends IndoorLocationProvider
     public void start() {
         Log.i("LOC_PROV", "Start");
         CrowdConnected.getInstance().registerPositionCallback(position -> handler.post(() -> dispatchIndoorLocationChange(
-                new IndoorLocation("Colocator", position.getLat(), position.getLng(), (double) position.getFloor(), System.currentTimeMillis()))));
+                new IndoorLocation("Colocator", position.getLatitude(), position.getLongitude(), (double) position.getFloor(), System.currentTimeMillis()))));
         isStarted = true;
     }
 

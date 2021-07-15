@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation 'net.crowdconnected.android.core:android-core:0.7'
-    implementation 'net.crowdconnected.android.ips:android-ips:0.7'
+    implementation 'net.crowdconnected.android.core:android-core:0.9.1'
+    implementation 'net.crowdconnected.android.ips:android-ips:0.9.1'
     implementation 'com.github.IndoorLocation:indoor-location-android:1.0.5'
 }
