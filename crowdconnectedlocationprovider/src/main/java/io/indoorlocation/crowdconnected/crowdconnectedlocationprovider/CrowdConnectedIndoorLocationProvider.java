@@ -40,8 +40,12 @@ public class CrowdConnectedIndoorLocationProvider extends IndoorLocationProvider
                 .addModule(new IPSModule())
                 .build();
         CrowdConnected.start(application, configuration);
-        CrowdConnected.getInstance().registerPositionCallback(position -> handler.post(() -> dispatchIndoorLocationChange(
-                new IndoorLocation("Colocator", position.getLatitude(), position.getLongitude(), (double) position.getFloor(), System.currentTimeMillis()))));
+        CrowdConnected.getInstance().registerPositionCallback(position -> {
+            if (position != null && position.getFloor() != null) {
+                handler.post(() -> dispatchIndoorLocationChange(
+                        new IndoorLocation("Colocator", position.getLatitude(), position.getLongitude(), (double) position.getFloor(), System.currentTimeMillis())));
+            }
+        });
         isStarted = true;
     }
 
